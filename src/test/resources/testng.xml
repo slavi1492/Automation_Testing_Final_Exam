@@ -1,0 +1,10 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="LoginSuite">
+    <test name="LoginTest">
+        <parameter name="username" value="auto_user" />
+        <parameter name="password" value="auto_pass" />
+        <classes>
+            <class name="LoginScenariosTests" />
+        </classes>
+    </test>
+</suite>
