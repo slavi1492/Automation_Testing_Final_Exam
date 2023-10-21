@@ -4,7 +4,7 @@
         <parameter name="username" value="auto_user" />
         <parameter name="password" value="auto_pass" />
         <classes>
-            <class name="LoginScenariosTests" />
+            <class name="tests.LoginTests" />
         </classes>
     </test>
 </suite>
