@@ -112,7 +112,7 @@ public class LoginTests extends BaseTest {
         headerPage.signOut();
         headerPage.goToLogin();
 
-        System.out.println("Check status of Username and Password");
+        System.out.println("Assert that you can login only by click 'Sigin' button");
         loginPage.clickSignInButton();
         Assert.assertEquals(homePage.popupMessageGetText(), "Successful login!", "Popup text differs from \"Succesfullogin\"");
         homePage.invisibilityOfPopupMessageBox();
