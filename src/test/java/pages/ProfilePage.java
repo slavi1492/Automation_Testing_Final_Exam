@@ -9,16 +9,16 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 public class ProfilePage extends BasePage {
 
     @FindBy(css = "app-profile-section  * .profile-user-settings h2")
-    WebElement userProfileName;
+    private WebElement userProfileName;
 
     @FindBy(xpath = "//*[contains(text(),\"posts\")]/*")
-    WebElement totalNumberOfPosts;
+    private WebElement totalNumberOfPosts;
 
     @FindBy(css = "#followers>*")
-    WebElement numberOfFollowers;
+    private WebElement numberOfFollowers;
 
     @FindBy(css = "#following>*")
-    WebElement numberOfFollowing;
+    private WebElement numberOfFollowing;
 
     public ProfilePage(WebDriver driver) {
         super(driver);

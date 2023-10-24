@@ -9,16 +9,22 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 public class LoginPage extends BasePage {
 
     @FindBy(css = ".form-container")
-    WebElement signInForm;
+    private WebElement signInForm;
 
     @FindBy(id = "defaultLoginFormUsername")
-    WebElement usernameInputField;
+    private WebElement usernameInputField;
 
     @FindBy(id = "defaultLoginFormPassword")
-    WebElement passwordInputField;
+    private WebElement passwordInputField;
 
     @FindBy(id = "sign-in-button")
-    WebElement signInButton;
+    private WebElement signInButton;
+
+    @FindBy(xpath = "//*[contains(text(),\"Register\")]")
+    private WebElement registrationLink;
+
+    @FindBy(css = "form *[type=\"checkbox\"]")
+    private WebElement loginRememberCheckBox;
 
     public LoginPage(WebDriver driver) {
         super(driver);
@@ -29,7 +35,7 @@ public class LoginPage extends BasePage {
         wait.until(ExpectedConditions.urlToBe(BASE_URL.concat(LOGIN_URL_ADD)));
     }
 
-    public void verifyLoginFormVisibility(){
+    public void verifyLoginFormVisibility() {
         wait.until(ExpectedConditions.visibilityOf(signInForm));
     }
 
@@ -38,11 +44,33 @@ public class LoginPage extends BasePage {
     }
 
     public void populatePasswordField(String password) {
-        populatedInputField(passwordInputField,password);
+        populatedInputField(passwordInputField, password);
     }
 
-    public void clickSignInButton(){
+    public void clickSignInButton() {
         clickElement(signInButton);
+    }
+
+    public void clickRegistrationLink() {
+        clickElement(registrationLink);
+    }
+
+    public void loginWithTestUser(String username, String password) {
+        wait.until(ExpectedConditions.visibilityOf(signInForm));
+        populatedInputField(usernameInputField, username);
+        populatedInputField(passwordInputField, password);
+        clickElement(signInButton);
+    }
+
+    public void clickLoginRememberCheckBox() {
+        wait.until(ExpectedConditions.elementToBeClickable(loginRememberCheckBox));
+        loginRememberCheckBox.click();
+
+    }
+
+    public boolean statusOfLoginRememberCheckBox() {
+        return loginRememberCheckBox.isEnabled();
+
     }
 
 

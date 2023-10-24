@@ -1,10 +1,12 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="LoginSuite">
-    <test name="LoginTest">
-        <parameter name="username" value="auto_user" />
-        <parameter name="password" value="auto_pass" />
+<suite name="Skillo Page tests">
+    <test name="AllTests">
         <classes>
-            <class name="tests.LoginTests" />
+            <parameter name="username" value="pesho123"/>
+            <parameter name="password" value="1qaz2wsx"/>
+            <parameter name="email" value="pesho123@gmail.com"/>
+            <class name="tests.LoginTests"/>
+            <class name="tests.RegistrationTests"/>
         </classes>
     </test>
 </suite>

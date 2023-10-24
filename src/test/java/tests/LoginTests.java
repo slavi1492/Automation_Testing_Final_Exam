@@ -11,12 +11,12 @@ import pages.ProfilePage;
 
 public class LoginTests extends BaseTest {
 
-    @DataProvider(name = "validUser")
-    public Object[][] getValidUser() {
-        return new Object[][]{
-                {"auto_user", "auto_pass"}
-        };
-    }
+//    @DataProvider(name = "validUser")
+//    public Object[][] getValidUser() {
+//        return new Object[][]{
+//                {"auto_user", "auto_pass"}
+//        };
+//    }
 
     @DataProvider(name = "invalidUser")
     public Object[][] getInvalidUser() {
@@ -31,9 +31,7 @@ public class LoginTests extends BaseTest {
 
 // Positive scenario test
 
-    @Test(testName = "LoginTest", groups = "PositiveTest", dataProvider = "validUser")
-    // @Parameters ({"username", "password"})
-    // public void positiveLoginTest(String username, String password) {
+    @Test(testName = "LoginTest", groups = "PositiveTests", dataProvider = "validUser")
     public void positiveLoginTest(String username, String password) {
 
         System.out.println("Open home page");
@@ -86,52 +84,77 @@ public class LoginTests extends BaseTest {
         headerPage.signOut();
 
         System.out.println("Verify that we are signed out of profile");
-        Assert.assertEquals(homePage.popupMessageGetText(), "Successful logout!", "Popup text differs from \"Succesfullogin\"");
+        Assert.assertEquals(homePage.popupMessageGetText(), "Successful logout!", "Popup text differs from \"Succesful logout\"");
         homePage.invisibilityOfPopupMessageBox();
+    }
+
+    @Test(testName = "LoginRememberMeTest", dataProvider = "validUser")
+    public void loginRememberMeTest(String username, String password) {
+
+        System.out.println("Open home page");
+        HomePage homePage = new HomePage(driver);
+        homePage.navigateToHomePage();
+
+        System.out.println("Click 'Login' button");
+        HeaderPage headerPage = new HeaderPage(driver);
+        headerPage.goToLogin();
+
+        System.out.println("Verify that you reach login page");
+        LoginPage loginPage = new LoginPage(driver);
+        loginPage.verifyLoginPageUrl();
+
+        System.out.println("Click Remember checkbox and logein with test user");
+        loginPage.clickLoginRememberCheckBox();
+        Assert.assertTrue(loginPage.statusOfLoginRememberCheckBox());
+        loginPage.loginWithTestUser(username, password);
+
+        System.out.println("Signeout and go back to Login page");
+        headerPage.signOut();
+        headerPage.goToLogin();
+
+        System.out.println("Check status of Username and Password");
+        loginPage.clickSignInButton();
+        Assert.assertEquals(homePage.popupMessageGetText(), "Successful login!", "Popup text differs from \"Succesfullogin\"");
+        homePage.invisibilityOfPopupMessageBox();
+
     }
 
 // Negative scenario test
 
     @Test(testName = "NegativeLoginTest", groups = "negativeTests", dataProvider = "invalidUser")
     public void negativeLoginTest(String invalidUsername, String invalidPassword, String errorMessage) {
-//
-//        System.out.println("Open home page");
-//        driver.get(BASE_URL);
-//
-//        System.out.println("Click 'Login' button");
-//        WebElement loginButton = driver.findElement(By.id("nav-link-login"));
-//        clickButton(loginButton);
-//
-//        System.out.println("Verify that you reach login page");
-//        wait.until(ExpectedConditions.urlToBe(LOGIN_URL));
-//
-//        System.out.println("Find 'Sign In' form");
-//        WebElement signInForm = driver.findElement(By.cssSelector("form"));
-//        wait.until(ExpectedConditions.visibilityOf(signInForm));
-//
-//        System.out.println("Populate 'Username' input");
-//        WebElement usernameInputField = signInForm.findElement(By.id("defaultLoginFormUsername"));
-//        wait.until(ExpectedConditions.visibilityOf(usernameInputField));
-//        usernameInputField.sendKeys(invalidUsername);
-//
-//        System.out.println("Populate 'Password' input");
-//        WebElement passwordInputField = signInForm.findElement(By.id("defaultLoginFormPassword"));
-//        wait.until(ExpectedConditions.visibilityOf(passwordInputField));
-//        passwordInputField.sendKeys(invalidPassword);
-//
-//        System.out.println("Click 'Sign In' button");
-//        WebElement signInButton = signInForm.findElement(By.id("sign-in-button"));
-//        clickButton(signInButton);
-//
-//        WebElement signInOutMessageBox = driver.findElement(By.id("toast-container"));
-//        wait.until(ExpectedConditions.visibilityOf(signInOutMessageBox));
-//        String signInOutMessageBoxText = signInOutMessageBox.getText();
-//        Assert.assertEquals(signInOutMessageBoxText, errorMessage);
-//        Assert.assertEquals(driver.getCurrentUrl(), LOGIN_URL);
-//
-//
-//    }
 
+        System.out.println("Open home page");
+        HomePage homePage = new HomePage(driver);
+        homePage.navigateToHomePage();
 
+        System.out.println("Click 'Login' button");
+        HeaderPage headerPage = new HeaderPage(driver);
+        headerPage.goToLogin();
+
+        System.out.println("Verify that you reach login page");
+        LoginPage loginPage = new LoginPage(driver);
+        loginPage.verifyLoginPageUrl();
+
+        System.out.println("Find 'Sign In' form");
+        loginPage.verifyLoginFormVisibility();
+
+        System.out.println("Populate 'Username' input");
+        loginPage.populateUsernameField(invalidUsername);
+
+        System.out.println("Populate 'Password' input");
+        loginPage.populatePasswordField(invalidPassword);
+
+        System.out.println("Click 'Sign In' button");
+        loginPage.clickSignInButton();
+
+        System.out.println("Check failed login attempt error message");
+        Assert.assertEquals(homePage.popupMessageGetText(), errorMessage, "Error message doesn't match expected fail message");
+
+        System.out.println("Check that we are still on login page");
+        loginPage.verifyLoginPageUrl();
     }
+
+
 }
+

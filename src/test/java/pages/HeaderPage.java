@@ -8,22 +8,22 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class HeaderPage extends BasePage {
     @FindBy(id = "homeIcon")
-    WebElement homeIcon;
+    private WebElement homeIcon;
 
     @FindBy(id = "nav-link-home")
-    WebElement homeLink;
+    private WebElement homeLink;
 
     @FindBy(id = "nav-link-login")
-    WebElement loginLink;
+    private WebElement loginLink;
 
     @FindBy(id = "nav-link-profile")
-    WebElement profileLink;
+    private WebElement profileLink;
 
     @FindBy(id = "nav-link-new-post")
-    WebElement newpostLink;
+    private WebElement newpostLink;
 
     @FindBy(className = "fa-sign-out-alt")
-    WebElement signoutButton;
+    private WebElement signoutButton;
 
     public HeaderPage(WebDriver driver) {
         super(driver);

@@ -8,9 +8,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.ITestResult;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -25,10 +23,22 @@ public class BaseTest {
     public final String SCREENSHOTS_FOLDER = "src\\test\\resources\\screenshots\\";
 
 
+    @DataProvider(name = "validUser")
+    public Object[][] getValidUser() {
+        return new Object[][]{
+                {"auto_user", "auto_pass"}
+        };
+    }
+    @BeforeClass
+    public void screenShotsClean() throws IOException {
+         cleanFolder(SCREENSHOTS_FOLDER);
+    }
+
+
     @BeforeMethod
     public void driverSetup() throws IOException {
         cleanFolder(DOWNLOAD_FOLDER);
-        cleanFolder(SCREENSHOTS_FOLDER);
+
 
         // Setup browser driver
         WebDriverManager.chromedriver().setup();
@@ -42,23 +52,22 @@ public class BaseTest {
 
         // Setup driver options and timeouts
         driver = new ChromeDriver(options);
-        driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(5));
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3)); //If we use explicit timeouts why we set this?
+        driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(15));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15)); //If we use explicit timeouts why we set this?
         driver.manage().window().maximize();
 
     }
 
-    @AfterMethod
-    public void driverCleanup() {
-        driver.close();
-    }
-
-    public void takeScreenshot(ITestResult testResult) throws IOException {
+    public void takeScreenshot(ITestResult testResult) {
         if (testResult.getStatus() == ITestResult.FAILURE) {
             TakesScreenshot takesScreenshot = (TakesScreenshot) driver;
             File screenShot = takesScreenshot.getScreenshotAs(OutputType.FILE);
             String testName = testResult.getName();
-            FileUtils.copyFile(screenShot, new File(SCREENSHOTS_FOLDER.concat(testName).concat(".jpg")));
+            try {
+                FileUtils.copyFile(screenShot, new File(SCREENSHOTS_FOLDER.concat(testName).concat(".jpg")));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
 
 
@@ -67,6 +76,12 @@ public class BaseTest {
     public void cleanFolder(String filepath) throws IOException {
         File folder = new File(filepath);
         FileUtils.cleanDirectory(folder);
+    }
+
+    @AfterMethod
+    public void driverCleanup(ITestResult testResult) {
+        takeScreenshot(testResult);
+        driver.close();
     }
 
 }

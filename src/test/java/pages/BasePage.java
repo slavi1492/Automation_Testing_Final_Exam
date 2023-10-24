@@ -1,5 +1,6 @@
 package pages;
 
+import org.jetbrains.annotations.NotNull;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -40,6 +41,10 @@ public class BasePage {
 
     public void checkInvisibilityOfWebElement(WebElement element) {
         wait.until(ExpectedConditions.invisibilityOf(element));
+    }
+
+    public String checkClassOfElement(@NotNull WebElement element) {
+        return element.getAttribute("class");
     }
 
 }

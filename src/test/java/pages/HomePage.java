@@ -9,7 +9,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 public class HomePage extends BasePage{
 
     @FindBy(id = "toast-container")
-    WebElement popupMessages;
+    private WebElement popupMessages;
 
     public HomePage(WebDriver driver) {
         super(driver);
