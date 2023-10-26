@@ -47,4 +47,5 @@ public class BasePage {
         return element.getAttribute("class");
     }
 
+
 }

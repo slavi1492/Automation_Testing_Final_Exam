@@ -9,6 +9,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
+import pages.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -23,15 +24,18 @@ public class BaseTest {
     public final String SCREENSHOTS_FOLDER = "src\\test\\resources\\screenshots\\";
 
 
+
+
     @DataProvider(name = "validUser")
     public Object[][] getValidUser() {
         return new Object[][]{
-                {"auto_user", "auto_pass"}
+                {"pesho12345678", "1qaz2wsx"}
         };
     }
+
     @BeforeClass
     public void screenShotsClean() throws IOException {
-         cleanFolder(SCREENSHOTS_FOLDER);
+        cleanFolder(SCREENSHOTS_FOLDER);
     }
 
 
@@ -56,6 +60,7 @@ public class BaseTest {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15)); //If we use explicit timeouts why we set this?
         driver.manage().window().maximize();
 
+
     }
 
     public void takeScreenshot(ITestResult testResult) {
@@ -76,6 +81,14 @@ public class BaseTest {
     public void cleanFolder(String filepath) throws IOException {
         File folder = new File(filepath);
         FileUtils.cleanDirectory(folder);
+    }
+
+    public void loginWithTestUser(String username, String password) {
+        LoginPage loginPage = new LoginPage(driver);
+        loginPage.navigateToLoginPage();
+        loginPage.populateUsernameField(username);
+        loginPage.populatePasswordField(password);
+        loginPage.clickSignInButton();
     }
 
     @AfterMethod

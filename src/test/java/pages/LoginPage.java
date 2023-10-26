@@ -31,6 +31,10 @@ public class LoginPage extends BasePage {
         PageFactory.initElements(driver, this);
     }
 
+    public void navigateToLoginPage(){
+        driver.get(BASE_URL.concat(LOGIN_URL_ADD));
+    }
+
     public void verifyLoginPageUrl() {
         wait.until(ExpectedConditions.urlToBe(BASE_URL.concat(LOGIN_URL_ADD)));
     }
@@ -53,13 +57,6 @@ public class LoginPage extends BasePage {
 
     public void clickRegistrationLink() {
         clickElement(registrationLink);
-    }
-
-    public void loginWithTestUser(String username, String password) {
-        wait.until(ExpectedConditions.visibilityOf(signInForm));
-        populatedInputField(usernameInputField, username);
-        populatedInputField(passwordInputField, password);
-        clickElement(signInButton);
     }
 
     public void clickLoginRememberCheckBox() {

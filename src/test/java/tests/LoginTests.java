@@ -11,13 +11,6 @@ import pages.ProfilePage;
 
 public class LoginTests extends BaseTest {
 
-//    @DataProvider(name = "validUser")
-//    public Object[][] getValidUser() {
-//        return new Object[][]{
-//                {"auto_user", "auto_pass"}
-//        };
-//    }
-
     @DataProvider(name = "invalidUser")
     public Object[][] getInvalidUser() {
         return new Object[][]{
@@ -59,7 +52,8 @@ public class LoginTests extends BaseTest {
         loginPage.clickSignInButton();
 
         System.out.println("Verify that the user is logged in");
-        Assert.assertEquals(homePage.popupMessageGetText(), "Successful login!", "Popup text differs from \"Successful login\"");
+        Assert.assertEquals(homePage.popupMessageGetText(), "Successful login!",
+                "Popup text differs from \"Successful login\"");
         homePage.invisibilityOfPopupMessageBox();
 
         System.out.println("Verify that you are send back to home page");
@@ -84,7 +78,8 @@ public class LoginTests extends BaseTest {
         headerPage.signOut();
 
         System.out.println("Verify that we are signed out of profile");
-        Assert.assertEquals(homePage.popupMessageGetText(), "Successful logout!", "Popup text differs from \"Successful logout\"");
+        Assert.assertEquals(homePage.popupMessageGetText(), "Successful logout!",
+                "Popup text differs from \"Successful logout\"");
         homePage.invisibilityOfPopupMessageBox();
     }
 
@@ -106,15 +101,17 @@ public class LoginTests extends BaseTest {
         System.out.println("Click Remember checkbox and login with test user");
         loginPage.clickLoginRememberCheckBox();
         Assert.assertTrue(loginPage.statusOfLoginRememberCheckBox());
-        loginPage.loginWithTestUser(username, password);
+        loginWithTestUser(username, password);
 
         System.out.println("Sign out and go back to Login page");
         headerPage.signOut();
+        homePage.invisibilityOfPopupMessageBox();
         headerPage.goToLogin();
 
         System.out.println("Assert that you can login only by click 'Sig in' button");
         loginPage.clickSignInButton();
-        Assert.assertEquals(homePage.popupMessageGetText(), "Successful login!", "Popup text differs from \"Successful login!\"");
+        Assert.assertEquals(homePage.popupMessageGetText(), "Successful login!",
+                "Popup text differs from \"Successful login\"");
         homePage.invisibilityOfPopupMessageBox();
 
     }
