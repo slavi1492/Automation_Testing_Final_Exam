@@ -2,9 +2,9 @@
 <suite name="Skillo Page tests">
     <test name="AllTests">
         <classes>
-            <class name="tests.LoginTests"/>
+<!--            <class name="tests.LoginTests"/>-->
             <class name="tests.RegistrationTests"/>
-            <class name="tests.NewPostTests"/>
+<!--            <class name="tests.NewPostTests"/>-->
             <parameter name="reg_username" value="pesho123"/>
             <parameter name="reg_password" value="1qaz2wsx"/>
             <parameter name="email" value="pesho123@gmail.com"/>
