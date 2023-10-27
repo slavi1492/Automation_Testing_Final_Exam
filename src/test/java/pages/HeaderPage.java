@@ -1,10 +1,13 @@
 package pages;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+
+import java.util.List;
 
 public class HeaderPage extends BasePage {
     @FindBy(id = "homeIcon")
@@ -25,6 +28,18 @@ public class HeaderPage extends BasePage {
     @FindBy(className = "fa-sign-out-alt")
     private WebElement signoutButton;
 
+    @FindBy(id = "search-bar")
+    private WebElement searchBarInput;
+
+    @FindBy(className = "fa-search")
+    private WebElement spyGlassIcon;
+
+    @FindBy(className = "dropdown-container")
+    private WebElement dropdownSearchResults;
+
+    @FindBy(css = "app-search-dropdown .small-user-container button")
+    private List<WebElement> listOfUsersFollowButtons;
+
     public HeaderPage(WebDriver driver) {
         super(driver);
         PageFactory.initElements(driver, this);
@@ -41,6 +56,7 @@ public class HeaderPage extends BasePage {
     public void visibilityOfSignOutButton() {
         checkVisibilityOfWebElement(signoutButton);
     }
+
     public void invisibilityOfProfileLink() {
         checkInvisibilityOfWebElement(profileLink);
     }
@@ -72,4 +88,19 @@ public class HeaderPage extends BasePage {
     public void signOut() {
         clickElement(signoutButton);
     }
+
+    public WebElement populateSearchInput(String searchInput)  {
+        populatedInputField(searchBarInput, "SimonaSLS");
+        clickElement(spyGlassIcon);
+        wait.until(ExpectedConditions.visibilityOf(dropdownSearchResults));
+        return listOfUsersFollowButtons.get(0);
+    }
+
+    public String getNameOfUser(WebElement firstResult) {
+        wait.until(ExpectedConditions.visibilityOf(firstResult));
+        String followedUserName = firstResult.findElement(By.cssSelector("a")).getText();
+        firstResult.findElement(By.cssSelector("button")).click();
+        return followedUserName;
+    }
+
 }

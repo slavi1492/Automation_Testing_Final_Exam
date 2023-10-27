@@ -39,7 +39,6 @@ public class RegistrationPage extends BasePage {
     }
 
     public void populateUsernameField(String username) {
-        wait.until(ExpectedConditions.visibilityOf(usernameInputField));
         populatedInputField(usernameInputField, username);
     }
 
@@ -49,7 +48,6 @@ public class RegistrationPage extends BasePage {
 
 
     public void populateEmailInputField(String email) {
-        wait.until(ExpectedConditions.visibilityOf(emailInputField));
         populatedInputField(emailInputField, email);
     }
 
@@ -58,7 +56,6 @@ public class RegistrationPage extends BasePage {
     }
 
     public void populatePasswordField(String password) {
-        wait.until(ExpectedConditions.visibilityOf(passwordInputField));
         populatedInputField(passwordInputField, password);
     }
 
@@ -67,7 +64,6 @@ public class RegistrationPage extends BasePage {
     }
 
     public void populateConfirmPasswordField(String password) {
-        wait.until(ExpectedConditions.visibilityOf(confirmPasswordInputField));
         populatedInputField(confirmPasswordInputField, password);
     }
 
@@ -76,7 +72,6 @@ public class RegistrationPage extends BasePage {
     }
 
     public void clickSignInButton(){
-        wait.until(ExpectedConditions.elementToBeClickable(signInButton));
         clickElement(signInButton);
     }
 

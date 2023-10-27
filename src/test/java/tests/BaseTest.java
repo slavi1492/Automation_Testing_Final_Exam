@@ -89,6 +89,8 @@ public class BaseTest {
         loginPage.populateUsernameField(username);
         loginPage.populatePasswordField(password);
         loginPage.clickSignInButton();
+        HomePage homePage = new HomePage(driver);
+        homePage.verifyHomePageUrl();
     }
 
     @AfterMethod

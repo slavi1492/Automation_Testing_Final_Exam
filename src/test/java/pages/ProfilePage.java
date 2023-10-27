@@ -6,7 +6,6 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ProfilePage extends BasePage {
@@ -21,12 +20,17 @@ public class ProfilePage extends BasePage {
     private WebElement numberOfFollowers;
     @FindBy(css = "#following>*")
     private WebElement numberOfFollowing;
+    @FindBy(id = "following")
+    private WebElement followingLink;
     @FindBy(css = ".post-filter-buttons>*")
     private List<WebElement> postsTypeButtonList;
     @FindBy(css = "app-post")
     private List<WebElement> listOfPosts;
     @FindBy(css = "app-profile-posts-section")
     private WebElement postsSection;
+    @FindBy(css = "app-small-user-profile button")
+    private List<WebElement> listOfFollowingUsers;
+
 
 
     public ProfilePage(WebDriver driver) {
@@ -45,10 +49,6 @@ public class ProfilePage extends BasePage {
 
     public int totalNumberOfUserPosts() {
         return Integer.parseInt(totalNumberOfPosts.getText().trim());
-    }
-
-    public int totalNumberOfUserFollowers() {
-        return Integer.parseInt(numberOfFollowers.getText().trim());
     }
 
     public int totalNumberOfUserFollowings() {
@@ -74,4 +74,14 @@ public class ProfilePage extends BasePage {
     public void visibilityOfPosts() {
         wait.until(ExpectedConditions.visibilityOf(postsSection));
     }
+
+    public void clickFollowingLink(){
+        clickElement(followingLink);
+    }
+
+    public void unfollowUser(){
+        clickElement(listOfFollowingUsers.get(0));
+    }
+
+
 }

@@ -24,7 +24,7 @@ public class LoginTests extends BaseTest {
 
 // Positive scenario test
 
-    @Test(testName = "LoginTest", groups = "PositiveTests", dataProvider = "validUser")
+    @Test(testName = "loginTest", groups = "PositiveTests", dataProvider = "validUser")
     public void positiveLoginTest(String username, String password) {
 
         System.out.println("Open home page");
@@ -83,7 +83,7 @@ public class LoginTests extends BaseTest {
         homePage.invisibilityOfPopupMessageBox();
     }
 
-    @Test(testName = "LoginRememberMeTest", dataProvider = "validUser")
+    @Test(testName = "loginRememberMeTest", dataProvider = "validUser")
     public void loginRememberMeTest(String username, String password) {
 
         System.out.println("Open home page");
@@ -99,9 +99,13 @@ public class LoginTests extends BaseTest {
         loginPage.verifyLoginPageUrl();
 
         System.out.println("Click Remember checkbox and login with test user");
-        loginPage.clickLoginRememberCheckBox();
+        loginPage.turnOnLoginRememberCheckBox();
+        System.out.println(loginPage.statusOfLoginRememberCheckBox());
         Assert.assertTrue(loginPage.statusOfLoginRememberCheckBox());
-        loginWithTestUser(username, password);
+        loginPage.populateUsernameField(username);
+        loginPage.populatePasswordField(password);
+        loginPage.clickSignInButton();
+
 
         System.out.println("Sign out and go back to Login page");
         headerPage.signOut();

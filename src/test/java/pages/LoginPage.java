@@ -31,7 +31,7 @@ public class LoginPage extends BasePage {
         PageFactory.initElements(driver, this);
     }
 
-    public void navigateToLoginPage(){
+    public void navigateToLoginPage() {
         driver.get(BASE_URL.concat(LOGIN_URL_ADD));
     }
 
@@ -59,14 +59,14 @@ public class LoginPage extends BasePage {
         clickElement(registrationLink);
     }
 
-    public void clickLoginRememberCheckBox() {
-        wait.until(ExpectedConditions.elementToBeClickable(loginRememberCheckBox));
-        loginRememberCheckBox.click();
-
+    public void turnOnLoginRememberCheckBox() {
+        if (!loginRememberCheckBox.isSelected()) {
+            clickElement(loginRememberCheckBox);
+        }
     }
 
     public boolean statusOfLoginRememberCheckBox() {
-        return loginRememberCheckBox.isEnabled();
+        return loginRememberCheckBox.isSelected();
 
     }
 

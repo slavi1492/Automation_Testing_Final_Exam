@@ -53,8 +53,7 @@ public class NewPostPage extends BasePage {
 
 
     public void populateCaption(String captionText) {
-        wait.until(ExpectedConditions.visibilityOf(postCaptionInput));
-        postCaptionInput.sendKeys(captionText);
+        populatedInputField(postCaptionInput, captionText);
     }
 
     public String postTypeStatus() {
@@ -64,13 +63,11 @@ public class NewPostPage extends BasePage {
     }
 
     public void changePostType() {
-        wait.until(ExpectedConditions.elementToBeClickable(postTypeSwitchButton));
-        postTypeSwitchButton.click();
+        clickElement(postTypeSwitchButton);
     }
 
     public void clickSubmitButton() {
-        wait.until(ExpectedConditions.elementToBeClickable(submitPostButton));
-        submitPostButton.click();
+        clickElement(submitPostButton);
     }
 
 

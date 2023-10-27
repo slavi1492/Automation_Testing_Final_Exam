@@ -8,7 +8,7 @@ import java.io.File;
 
 public class NewPostTests extends BaseTest {
     @Test(testName = "createNewPost", dataProvider = "validUser")
-    public void postTypeButton(String username, String password) throws InterruptedException {
+    public void verifyCreatedPosts(String username, String password) throws InterruptedException {
 
         System.out.println("Login with test user");
         loginWithTestUser(username, password);
