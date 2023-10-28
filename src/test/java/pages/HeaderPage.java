@@ -57,18 +57,6 @@ public class HeaderPage extends BasePage {
         checkVisibilityOfWebElement(signoutButton);
     }
 
-    public void invisibilityOfProfileLink() {
-        checkInvisibilityOfWebElement(profileLink);
-    }
-
-    public void invisibilityOfNewpostLink() {
-        checkInvisibilityOfWebElement(profileLink);
-    }
-
-    public void invisibilityOfSignOutButton() {
-        checkInvisibilityOfWebElement(signoutButton);
-    }
-
     public void goToLogin() {
         clickElement(loginLink);
     }
@@ -87,20 +75,6 @@ public class HeaderPage extends BasePage {
 
     public void signOut() {
         clickElement(signoutButton);
-    }
-
-    public WebElement populateSearchInput(String searchInput)  {
-        populatedInputField(searchBarInput, "SimonaSLS");
-        clickElement(spyGlassIcon);
-        wait.until(ExpectedConditions.visibilityOf(dropdownSearchResults));
-        return listOfUsersFollowButtons.get(0);
-    }
-
-    public String getNameOfUser(WebElement firstResult) {
-        wait.until(ExpectedConditions.visibilityOf(firstResult));
-        String followedUserName = firstResult.findElement(By.cssSelector("a")).getText();
-        firstResult.findElement(By.cssSelector("button")).click();
-        return followedUserName;
     }
 
 }

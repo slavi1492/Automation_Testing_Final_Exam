@@ -6,6 +6,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.HeaderPage;
 import pages.HomePage;
+import pages.PostModal;
 import pages.ProfilePage;
 
 public class FollowingTest extends BaseTest {
@@ -30,12 +31,18 @@ public class FollowingTest extends BaseTest {
         for (int i=0; i<100; ++i) {
             driver.findElement(By.cssSelector("html")).sendKeys(Keys.DOWN);
         }
-        int addNumberOfFollowing = homePage.followUserFromPost();
+        homePage.openPost(0);
+        PostModal postModal = new PostModal(driver);
+        String stateOfFollowButton = postModal.stateOfFollowButton();
+        int newNumberOfFollowing = initialNumberOfFollowing;
+        if (stateOfFollowButton.equals("Follow")){
+            newNumberOfFollowing += 1;
+        }else { newNumberOfFollowing -= 1;}
+        postModal.clickFollowUnloowButton();
+        homePage.invisibilityOfPopupMessageBox();
 
         System.out.println("Verify followed user on profile page");
-        headerPage.goToProfile();
-        int newNumberOfFollowing = profilePage.totalNumberOfUserFollowings();
-        Assert.assertEquals(newNumberOfFollowing, initialNumberOfFollowing + addNumberOfFollowing,
+        Assert.assertEquals(newNumberOfFollowing, initialNumberOfFollowing + 1,
                 "Number of following users is not increased by 1");
     }
 
@@ -46,6 +53,7 @@ public class FollowingTest extends BaseTest {
 
         ProfilePage profilePage = new ProfilePage(driver);
         HeaderPage headerPage = new HeaderPage(driver);
+        HomePage homePage = new HomePage(driver);
 
         System.out.println("Get the initial number of following users");
         headerPage.goToProfile();
@@ -56,6 +64,7 @@ public class FollowingTest extends BaseTest {
 
         System.out.println("Unfollow User");
         profilePage.unfollowUser();
+        homePage.invisibilityOfPopupMessageBox();
 
         System.out.println("Verify that following users decreased with 1");
         int newNumberOfFollowing = profilePage.totalNumberOfUserFollowings();

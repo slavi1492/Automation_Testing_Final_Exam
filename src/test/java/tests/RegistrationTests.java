@@ -63,7 +63,7 @@ public class RegistrationTests extends BaseTest {
 
         System.out.println("Check Popup message");
         Assert.assertEquals(homePage.popupMessageGetText(), "Successful register!",
-                "Popup message is incorect. Actual message is: " + homePage.popupMessageGetText());
+                "Popup message is incorrect. Actual message is: " + homePage.popupMessageGetText());
 
         System.out.println("Verify that we are on home page");
         homePage.verifyHomePageUrl();

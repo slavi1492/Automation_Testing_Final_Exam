@@ -13,10 +13,10 @@ public class HomePage extends BasePage {
 
     @FindBy(id = "toast-container")
     private WebElement popupMessages;
-    @FindBy(css = "app-small-user-profile button")
-    List<WebElement> userPostsFollowButton;
+    @FindBy(tagName = "app-post-detail")
+    private List<WebElement> allPosts;
     @FindBy(className = "post-info")
-    List<WebElement> postsInfoBar;
+    private List<WebElement> postsInfoBar;
 
 
     public HomePage(WebDriver driver) {
@@ -41,19 +41,6 @@ public class HomePage extends BasePage {
         checkInvisibilityOfWebElement(popupMessages);
     }
 
-    public int followUserFromPost() {
-        int i = 0;
-        for (WebElement element : userPostsFollowButton) {
-            if (element.getText().trim().equals("Follow")) {
-                wait.until(ExpectedConditions.elementToBeClickable(element));
-                element.click();
-                ++i;
-            }
-
-        }
-        return i;
-    }
-
     public boolean checkStatusOfDislike(int i) {
         WebElement dislikesButton = postsInfoBar.get(i).findElement(By.className("fa-thumbs-down"));
         String tempString = dislikesButton.getAttribute("class").trim();
@@ -66,7 +53,6 @@ public class HomePage extends BasePage {
         String tempString = likesButton.getAttribute("class").trim();
         System.out.println(tempString);
         return tempString.contains("liked");
-
     }
 
     public void clickLikeOnPost(int i) throws InterruptedException {
@@ -81,5 +67,9 @@ public class HomePage extends BasePage {
         clickElement(dislikesButton);
         Thread.sleep(3000);
         invisibilityOfPopupMessageBox();
+    }
+
+    public void openPost(int i){
+        clickElement(allPosts.get(i));
     }
 }

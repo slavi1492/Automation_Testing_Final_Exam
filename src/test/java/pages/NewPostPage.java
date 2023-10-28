@@ -12,25 +12,25 @@ import java.util.List;
 public class NewPostPage extends BasePage {
 
     @FindBy(css = "input[type='file']")
-    WebElement uploadFileInput;
+    private WebElement uploadFileInput;
 
     @FindBy(className = "image-preview")
-    WebElement uploadImagePreview;
+    private WebElement uploadImagePreview;
 
     @FindBy(css = ".input-group *[type=\"text\"]")
-    WebElement uploadFileName;
+    private WebElement uploadFileName;
 
     @FindBy(css = ".input-group-addon input[type=\"text\"")
-    WebElement postCaptionInput;
+    private WebElement postCaptionInput;
 
     @FindBy(className = "post-status-label")
-    List<WebElement> postType;
+    private List<WebElement> postType;
 
     @FindBy(css = ".post-status-label[for=\"customSwitch2\"]")
-    WebElement postTypeSwitchButton;
+    private WebElement postTypeSwitchButton;
 
     @FindBy(id = "create-post")
-    WebElement submitPostButton;
+    private WebElement submitPostButton;
 
 
     public NewPostPage(WebDriver driver) {
